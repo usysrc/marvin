@@ -6,11 +6,17 @@ on:
 
 jobs:
   run:
-    environment: matrix # needed for PyPI OIDC
+    environment: Matrix
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: eifinger/setup-rye@v3
       - run: rye pin 3.12
       - run: rye sync
-      - run: rye run marvin
+      - name: run marvin
+        env:
+          MATRIX_ACCESSTOKEN: ${{ secrets.MATRIX_ACCESSTOKEN }}
+          MATRIX_HOMESERVER: ${{ secrets.MATRIX_HOMESERVER }}
+          MATRIX_MESSAGE: ${{ secrets.MATRIX_MESSAGE }}
+          MATRIX_ROOMID: ${{ secrets.MATRIX_ROOMID }}
+        run: rye run marvin
