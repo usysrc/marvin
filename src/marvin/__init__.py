@@ -8,9 +8,11 @@ access_token = os.environ["MATRIX_ACCESSTOKEN"]
 room_id = os.environ["MATRIX_ROOMID"]
 message = os.environ["MATRIX_MESSAGE"]
 
+
 # Function to get a monotonically increasing transaction ID
 def get_txn_id():
     return str(int(time.time() * 1000))
+
 
 def send_message(msg):
     # Generate the transaction ID
@@ -22,14 +24,11 @@ def send_message(msg):
     # Define the headers
     headers = {
         "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
 
     # Define the message content
-    data = {
-        "msgtype": "m.text",
-        "body": msg
-    }
+    data = {"msgtype": "m.text", "body": msg}
 
     # Send the request
     response = requests.put(endpoint, headers=headers, json=data)
@@ -40,5 +39,6 @@ def send_message(msg):
     else:
         print(f"Failed to send message: {response.status_code}")
         print(response.json())
+
 
 send_message(message)
