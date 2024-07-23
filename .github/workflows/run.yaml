@@ -11,5 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: eifinger/setup-rye@v3
+      - run: rye pin 3.12
       - run: rye sync
       - run: rye run marvin
