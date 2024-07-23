@@ -1,0 +1,14 @@
+name: run
+on:
+  schedule:
+    - cron: "0 18 * * 0" # Runs every Sunday at 17:00 (UTC)
+
+jobs:
+  run:
+    environment: matrix # needed for PyPI OIDC
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: eifinger/setup-rye@v3
+      - run: rye sync
+      - run: rye run marvin
