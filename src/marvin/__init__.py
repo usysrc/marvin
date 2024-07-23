@@ -41,4 +41,12 @@ def send_message(msg):
         print(response.json())
 
 def main() -> None:
-    send_message(message)
+    send_message("Montag?")
+    time.sleep(0.1)
+    send_message("Dienstag?")
+    time.sleep(0.1)
+    send_message("Mittwoch?")
+    time.sleep(0.1)
+    send_message("Donnerstag?")
+    time.sleep(0.1)
+    send_message("Freitag?")
