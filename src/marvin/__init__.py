@@ -40,5 +40,5 @@ def send_message(msg):
         print(f"Failed to send message: {response.status_code}")
         print(response.json())
 
-
-send_message(message)
+def main() -> None:
+    send_message(message)

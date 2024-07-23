@@ -5,7 +5,9 @@ description = "a simple cron job that posts questions to a matrix room"
 authors = [
     { name = "usysrc", email = "usysrc@usysrc.dev" }
 ]
-dependencies = []
+dependencies = [
+    "requests>=2.32.3",
+]
 readme = "README.md"
 requires-python = ">= 3.8"
 
@@ -22,3 +24,6 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/marvin"]
+
+[project.scripts]
+"marvin" = "marvin:main"
