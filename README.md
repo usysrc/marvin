@@ -1,6 +1,6 @@
 # Marvin - Matrix Room Scheduler Bot
 
-Marvin is a simple bot designed to send messages to a Matrix room every on a given schedule to inquire about the availability of members for different days of the week.
+Marvin is a simple bot designed to send messages to a Matrix room on a given schedule to inquire about the availability of members for different days of the week.
 
 ## Setup
 
