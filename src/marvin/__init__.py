@@ -1,6 +1,6 @@
-import requests
-import time
+import asyncio
 import os
+from nio import AsyncClient
 
 # Define your variables
 homeserver_url = os.environ["MATRIX_HOMESERVER"]
@@ -8,45 +8,33 @@ access_token = os.environ["MATRIX_ACCESSTOKEN"]
 room_id = os.environ["MATRIX_ROOMID"]
 message = os.environ["MATRIX_MESSAGE"]
 
+async def send_poll():
+    client = AsyncClient(homeserver_url, device_id="PollBot")
+    client.access_token = access_token
 
-# Function to get a monotonically increasing transaction ID
-def get_txn_id():
-    return str(int(time.time() * 1000))
-
-
-def send_message(msg):
-    # Generate the transaction ID
-    txn_id = get_txn_id()
-
-    # Define the endpoint
-    endpoint = f"{homeserver_url}/_matrix/client/v3/rooms/{room_id}/send/m.room.message/{txn_id}"
-    print(endpoint)
-    # Define the headers
-    headers = {
-        "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json",
+    poll_content = {
+        "org.matrix.msc3381.poll.start": {
+            "question": {
+                "org.matrix.msc1767.text": "Weekly Gaming Session Poll",
+                "body": "Weekly Gaming Session Poll!",
+                "msgtype": "m.text"
+            },
+            "kind": "org.matrix.msc3381.poll.disclosed",
+            "max_selections": 1,
+            "answers": [
+                {"id": "montag", "org.matrix.msc1767.text": "Montag"},
+                {"id": "dienstag", "org.matrix.msc1767.text": "Dienstag"},
+                {"id": "mittwoch", "org.matrix.msc1767.text": "Mittwoch"},
+                {"id": "donnerstag", "org.matrix.msc1767.text": "Donnerstag"},
+                {"id": "freitag", "org.matrix.msc1767.text": "Freitag"},]
+        }
     }
 
-    # Define the message content
-    data = {"msgtype": "m.text", "body": msg}
+    await client.room_send(room_id, "org.matrix.msc3381.poll.start", poll_content)
+    await client.close()
 
-    # Send the request
-    response = requests.put(endpoint, headers=headers, json=data)
-
-    # Check the response
-    if response.status_code == 200:
-        print("Message sent successfully!")
-    else:
-        print(f"Failed to send message: {response.status_code}")
-        print(response.json())
+def run_poll():
+    asyncio.get_event_loop().run_until_complete(send_poll())
 
 def main() -> None:
-    send_message("Montag?")
-    time.sleep(0.1)
-    send_message("Dienstag?")
-    time.sleep(0.1)
-    send_message("Mittwoch?")
-    time.sleep(0.1)
-    send_message("Donnerstag?")
-    time.sleep(0.1)
-    send_message("Freitag?")
+    run_poll()
