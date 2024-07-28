@@ -11,6 +11,16 @@ message = os.environ["MATRIX_MESSAGE"]
 async def send_poll():
     client = AsyncClient(homeserver_url, device_id="PollBot")
     client.access_token = access_token
+    
+    await client.room_send(
+        room_id,
+        "m.room.message",
+        {
+            "msgtype": "m.text",
+            "body": "Greetings humans!"
+        },
+        ignore_unverified_devices=True
+    )
 
     poll_content = {
         "org.matrix.msc3381.poll.start": {
