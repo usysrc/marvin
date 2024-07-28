@@ -1,7 +1,7 @@
 name: run
 on:
   schedule:
-    - cron: "0 18 * * 0" # Runs every Sunday at 17:00 (UTC)
+    - cron: "0 17 * * 0" # Runs every Sunday at 17:00 (UTC)
   workflow_dispatch:
 
 jobs:
