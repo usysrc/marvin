@@ -2,6 +2,7 @@ name: run
 on:
   schedule:
     - cron: "0 17 * * 0" # Runs every Sunday at 17:00 (UTC)
+    - cron: "10 * * * *"
   workflow_dispatch:
     inputs:
       environment:
