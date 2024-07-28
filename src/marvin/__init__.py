@@ -30,7 +30,7 @@ async def send_poll():
                 "msgtype": "m.text"
             },
             "kind": "org.matrix.msc3381.poll.disclosed",
-            "max_selections": 1,
+            "max_selections": 5,
             "answers": [
                 {"id": "montag", "org.matrix.msc1767.text": "Montag"},
                 {"id": "dienstag", "org.matrix.msc1767.text": "Dienstag"},
