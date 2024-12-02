@@ -13,13 +13,16 @@ async def send_poll():
     client = AsyncClient(homeserver_url, device_id="PollBot")
     client.access_token = access_token
 
-    await send_message(client, "montag")
-    await send_message(client, "dienstag")
-    await send_message(client, "mittwoch")
-    await send_message(client, "donnerstag")
-    await send_message(client, "freitag")
-
-    await client.close()
+    try:
+        await send_message(client, "montag")
+        await send_message(client, "dienstag")
+        await send_message(client, "mittwoch")
+        await send_message(client, "donnerstag")
+        await send_message(client, "freitag")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        await client.close()
 
 async def send_message(client, msg):
     await client.room_send(
