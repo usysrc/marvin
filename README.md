@@ -26,7 +26,7 @@ Marvin uses the following environment variables to function correctly:
    rye sync
    ```
 
-3. Set up the required environment variables. You can create a `.env` file in the same directory by copying the `env.example` as the script for convenience:
+3. Set up the required environment variables. You can create a `.env` file in the same directory by copying the `env.example`:
    ```sh
    export MATRIX_HOMESERVER="https://matrix.org"
    export MATRIX_ACCESSTOKEN="YOUR_ACCESS_TOKEN"
